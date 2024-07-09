@@ -21,3 +21,93 @@ require(foreign)
 data <- read.csv(file="https://onlinestatbook.com/case_studies_rvls/physical_strength/data.txt",sep="",header=TRUE)
 ```
 
+
+
+Regression Model #1 (SIMS VS ARM)
+
+```{r}
+model1 <- lm(SIMS~ARM,data=data)
+plot(SIMS~ARM,data=data)
+abline(model1)
+summary.lm(model1)
+```
+
+```{r}
+new <- data.frame(ARM=88, GRIP=94)
+```
+
+```{r}
+predict(model1, new, interval = "prediction")
+```
+
+
+
+Regression Model #2 (SIMS VS GRIP)
+
+```{r}
+model2 <- lm(SIMS~GRIP,data=data)
+plot(SIMS~GRIP,data=data)
+abline(model2)
+summary.lm(model2)
+```
+```{r}
+new <- data.frame(ARM=88, GRIP=94)
+```
+
+```{r}
+predict(model2, new, interval = "prediction")
+```
+
+
+Regression Model #3 (SIMS VS ARM + GRIP)
+
+```{r}
+model3 <- lm(SIMS~ARM+GRIP,data=data)
+plot(SIMS~ARM+GRIP,data=data)
+abline(model3)
+summary.lm(model3)
+```
+
+
+```{r}
+new <- data.frame(ARM=88, GRIP=94)
+```
+
+
+```{r}
+predict(model3, new, interval = "prediction")
+```
+
+
+
+
+Comparing Model #1 and Model #3
+
+```{r}
+anova(model1,model3)
+```
+
+
+
+
+Comparing Model #2 and Model #3
+
+```{r}
+anova(model2,model3)
+```
+
+
+
+Informal Comparison
+
+```{r}
+anova(model1,model2)
+```
+
+
+
+Summary
+
+ As we compare model 1 through 3 we see differences in their RSS. In model 1 we have an RSS of 217 whereas in model 2 we have 243. When we compare Model 3 to these we get 188. Model 2 to Model 3 is a difference of 55, whereas in Model 1 and model 2 it's a difference of 26. Comparing all the models in my conclusion I believe model 3 to be the best model because of the RSS being lower than the rest with the RSS being 188.
+
+
